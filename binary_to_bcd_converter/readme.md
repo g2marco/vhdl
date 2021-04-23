@@ -28,7 +28,7 @@ for i in N-1 to 0:
 
 The following table illustrates the algorithm for the binary number: 1110 0111 0011 (3699 base 10). You should note that the 'transform' step, when not required, leaves each BCD digit without change.
 
-![paper_example](resources/images/paper_example.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/paper_example.png" /></p>
 
 
 ## General Component Diagram
@@ -37,19 +37,20 @@ The following diagram show the interface of the circuit
 
 
 
-![component_interface](resources/images/component_interface.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/component_interface.png" />
+
 
 
 
 The clock and reset signal are general signal (they are common to all components). The 'nconvert' signal tells the component when to start a new conversion of the value present in the 'data' inputs. When the conversion ends, the 'bcd_digits' output present an stable outcome. This value is hold until a new conversion is requested. This general process is depicted in the diagram below. 
 
-![interface_waveforms](resources/images/interface_waveforms.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/interface_waveforms.png" /></p>
 
 ## Top - Down Design
 
 The diagram below show the internal blocks forming this component. Each block is responsible of one single task. The conversion process is controlled by the 'control' block. First, directs the 'load-sfhit' block to load the data that will be converted and to shifts its value as needed. Then indicates the 'binary to bcd' block to perform the transform and shift steps in the 'bcd_digits', or to hold de current value until another conversion starts.
 
-![block_diagram](resources/images/block_diagram.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/block_diagram.png" /></p>
 
 
 
@@ -57,7 +58,7 @@ The diagram below show the internal blocks forming this component. Each block is
 
 DATA = 0011 0011 0011 0011 B 
 
-![simulation_load_shift](resources/images/simulation_load_shift.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_load_shift.png" /></p>
 
 
 
@@ -69,7 +70,7 @@ N= 12 bits
 
 M = 4 BCD digits 
 
-![simulation_binary_to_bcd](resources/images/simulation_binary_to_bcd.png)
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_binary_to_bcd.png" /></p>
 
 
 
