@@ -18,17 +18,17 @@ architecture Behavioral of test_binary_to_bcd is
     signal clk      : std_logic := '0';
     signal reset    : std_logic := '0';
     signal nconvert : std_logic := '1'; 
-    signal d        : std_logic := '0';
+    signal data_in  : std_logic := '0';
    
     -- Señales de salida.
-    signal q : std_logic_vector (15 downto 0);
+    signal bcd_digits: std_logic_vector (15 downto 0);
 
     -- Definición del perido del reloj.
     constant clk_period : time := 10 ns;
 begin
      
    -- Usar la unidad bajo prueba.
-   uut: binary_to_bcd PORT MAP ( clk => clk, reset => reset, nconvert => nconvert, data_in => d, bcd_digits => q);
+   uut: binary_to_bcd PORT MAP ( clk => clk, reset => reset, nconvert => nconvert, data_in => data_in, bcd_digits => bcd_digits);
 
    -- Generar reloj.
    clk_process: process
@@ -43,26 +43,26 @@ begin
    stim_proc: process
    begin
        nconvert <= '1';
-       d <= '1';
-       wait for 94 ns;
+       data_in <= '1';
+       wait for 54 ns;
        
        nconvert <= '0';
-       d <= '1';
+       data_in <= '1';
        wait for 28 ns;
        
-       d <= '0';
+       data_in <= '0';
        wait for 21 ns;
        
-       d <= '1';
+       data_in <= '1';
        wait for 14 ns;
        
-       d <= '1';
+       data_in <= '1';
        wait for 14 ns;
        
-       d <= '0';
+       data_in <= '0';
        wait for 21 ns;
        
-       d <= '1';
+       data_in <= '1';
        wait for 14 ns;
        
        nconvert <= '1';
@@ -75,7 +75,7 @@ begin
         reset <= '1';
         wait for 30ns;
         reset <= '0';
-        wait for 200ns;
+        wait for 370ns;
     end process;
            
 end Behavioral;

@@ -32,25 +32,25 @@ begin
     clock_signal: process is
         begin
             clk <= '0';
-            wait for 10ns;
+            wait for 5 ns;
             clk <= '1';
-            wait for 10ns;
+            wait for 5 ns;
         end process clock_signal;
     
     reset_signal: process is
         begin
             reset <= '1';
-            wait for 25ns;
+            wait for 30 ns;
             reset <= '0';
-            wait for 500ns;
+            wait for 470 ns;
         end process reset_signal;
     
     load_signal: process is
         begin
             load <= '1';
-            wait for 50ns;
+            wait for 50 ns;
             load <= '0';
-            wait for 500ns;
+            wait for 200 ns;
         end process load_signal;
         
     data <= "0011001100110011";
