@@ -13,7 +13,7 @@ A vendor independent directory structure is used for all of them, as shown below
 
 ````python
 /<project>
-	/constraints
+    /constraints
     /src
     /tests
     readme.md
