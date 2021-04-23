@@ -76,9 +76,13 @@ M = 4 BCD digits
 
 ### Simulation of the CONTROL block
 
-<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_control.png" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_controlador.png" /></p>
+
 
 
 ### Simulation of the Component
 
+Please compare this simulation waveforms with the the sketched waveform presented during the explanation of the component. They look alike.
+
 <p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_binary_bcd_converter.png" /></p>
+
