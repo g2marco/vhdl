@@ -75,3 +75,10 @@ M = 4 BCD digits
 
 
 ### Simulation of the CONTROL block
+
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_control.png" /></p>
+
+
+### Simulation of the Component
+
+<p align="center"><img src="https://raw.githubusercontent.com/g2marco/vhdl/main/binary_to_bcd_converter/resources/images/simulation_binary_bcd_converter.png" /></p>
