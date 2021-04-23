@@ -10,11 +10,11 @@ architecture Behavioral of test_load_shift is
     component load_shift
         generic( DATA_BITS: natural);
         port (
-            reset   : in  std_logic;
-            clk     : in  std_logic;
-            load    : in  std_logic;
-            data    : in  std_logic_vector( DATA_BITS -1 downto 0);
-            data_out: out std_logic
+            clk        : in  std_logic;
+            reset      : in  std_logic;
+            load_nshift: in  std_logic;                                     -- 1 parallel load, 0 shift left                                            
+            data       : in  std_logic_vector( DATA_BITS - 1 downto 0);     -- parallel data input
+            data_out   : out std_logic                                      -- serial data output
         );
     end component;
     
@@ -26,8 +26,8 @@ architecture Behavioral of test_load_shift is
     
 begin
     uut: load_shift 
-        generic map( DATA_BITS)
-        port    map( reset, clk, load, data, data_out);
+        generic map( DATA_BITS => DATA_BITS)
+        port    map( clk => clk, reset => reset, load_nshift => load, data => data, data_out => data_out);
 
     clock_signal: process is
         begin

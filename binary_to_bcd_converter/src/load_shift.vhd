@@ -1,47 +1,59 @@
 ----------------------------------------------------------------------------------
--- Description:     Configurable length shift register with parallel load 
+-- Description: Configurable length shift register with parallel load and 
+--              serial data output
 -- 
 -- @author  Marco Antonio Garcia G.     g2marco@yahoo.com.mx
 ----------------------------------------------------------------------------------
-library ieee;
-use ieee.std_logic_1164.all;
 
+library ieee;
+    use ieee.std_logic_1164.all;
+
+--
 entity load_shift is
+    --  
+    --  DATA_BITS: length of the parallel data input
+    --
     generic( DATA_BITS: natural);
     
-    port (  reset, clk : in  std_logic;
-            load       : in  std_logic;
-            data       : in  std_logic_vector( DATA_BITS - 1 downto 0);
-            data_out   : out std_logic
+    port (
+        clk        : in  std_logic;
+        reset      : in  std_logic;
+        load_nshift: in  std_logic;                                     -- 1 parallel load, 0 shift left                                            
+        data       : in  std_logic_vector( DATA_BITS - 1 downto 0);     -- parallel data input
+        data_out   : out std_logic                                      -- serial data output
     );
 end load_shift;
 
+--
 architecture Behavioral of load_shift is
-    signal siguiente : std_logic_vector( DATA_BITS - 1 downto 0);  
-    signal actual    : std_logic_vector( DATA_BITS - 1 downto 0) := (others => '0');
+    constant ZEROS   : std_logic_vector( DATA_BITS - 1 downto 0) := (others => '0');
+    
+    signal siguiente : std_logic_vector( DATA_BITS - 1 downto 0) := ZEROS;  
+    signal actual    : std_logic_vector( DATA_BITS - 1 downto 0) := ZEROS;
 
 begin
 
-    data_out <= actual(DATA_BITS - 1);
+    data_out <= actual( DATA_BITS - 1);
     
-    proc_siguiente: process( load, reset, data, actual) is
-        begin
-            if ( reset = '1') then
-                siguiente <= (others => '0');
-            else
-                case load is
-                    when '1'    => siguiente <= data;                                       -- load
-                    when '0'    => siguiente <= (actual(DATA_BITS - 2 downto 0) & '0');     -- shift
-                    when others => siguiente <= actual;                                     -- hold
-                end case;
-            end if;
-        end process proc_siguiente;
-
     proc_register: process( clk) is
         begin
-            if ( clk'event and clk = '1') then
-                actual <= siguiente;
+            if rising_edge( clk) then
+                if reset = '1' then
+                    actual <= (others => '0');
+                else
+                    actual <= siguiente;
+                end if;
             end if;
         end process proc_register;
     
+    
+    proc_siguiente: process( load_nshift, data, actual) is
+        begin
+            case load_nshift is
+                when '0'    => siguiente <= (actual(DATA_BITS - 2 downto 0) & '0');     -- shift
+                when '1'    => siguiente <= data;                                       -- load
+                when others => siguiente <= ZEROS;
+            end case;
+        end process proc_siguiente;
+            
 end Behavioral;
