@@ -10,18 +10,18 @@ The pseudo code of this algorithm is shown below
 #
 # 	Binary to BCD convertion algorithm
 #
-binary_number[N -1: 0] <-- value to convert		# N bits unsigned binary number
+binary_number[N -1: 0] <-- value to convert	# N bits unsigned binary number
 bcd_digits[4M - 1 : 0] <-- 0's              	# each bcd_digit has 4 bits
 
 for i in N-1 to 0:
     # apply transformation to each BCD digit, if required
-   	for bcd_digit in bcd_digits:
+    for bcd_digit in bcd_digits:
         bcd_digit = (bcd_digit > 4)? bcd_digit + 3: bcd_digit;
 
     # shift to the left the pair [bcd_digits | binary_number]
     bcd_digits      <<= 1
     bcd_digits[LSB] = binay_number[MSB]
-	binary_number   <<= 1
+    binary_number   <<= 1
 ````
 
 
