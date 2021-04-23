@@ -10,8 +10,8 @@ The pseudo code of this algorithm is shown below
 #
 # 	Binary to BCD convertion algorithm
 #
-binary_number[N -1: 0] <-- value to convert	# N bits unsigned binary number
-bcd_digits[4M - 1 : 0] <-- 0's              	# each bcd_digit has 4 bits
+binary_number[N -1: 0] <-- value to convert     # N bits unsigned binary number
+bcd_digits[4M - 1 : 0] <-- 0's                  # each bcd_digit has 4 bits
 
 for i in N-1 to 0:
     # apply transformation to each BCD digit, if required
