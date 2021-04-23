@@ -28,9 +28,7 @@ for i in N-1 to 0:
 
 The following table illustrates the algorithm for the binary number: 1110 0111 0011 (3699 base 10). You should note that the 'transform' step, when not required, leaves each BCD digit without change.
 
-![image-20210422233900056](C:\Users\g2marco\AppData\Roaming\Typora\typora-user-images\image-20210422233900056.png)
-
-
+![](D:\home\ework\vhdl\binary_to_bcd_converter\resources\images\paper_example.png)
 
 ## General Component Diagram
 
