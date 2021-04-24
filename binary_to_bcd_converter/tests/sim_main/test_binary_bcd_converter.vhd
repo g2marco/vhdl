@@ -10,13 +10,17 @@ architecture Behavioral of test_binary_bcd_converter is
     constant DIGITOS   : natural := 4;
     
     component binary_bcd_converter
-        generic ( DIGITOS: natural; DATA_BITS: natural);
+        --
+        --  DIGITS_BCD : number of BCD output digits (groups of 4 bits)
+        --  BITS_DATA  : number of bits in the binary input data
+        --
+        generic ( DIGITS_BCD: natural; BITS_DATA: natural);
         port (
             clk       : in    std_logic;
             reset     : in    std_logic;
             nconvert  : in    std_logic;
-            data      : in    std_logic_vector( DATA_BITS  - 1 downto 0);
-            bcd_digits: inout std_logic_vector((DIGITOS*4) - 1 downto 0)
+            data      : in    std_logic_vector( BITS_DATA  - 1 downto 0);
+            bcd_digits: inout std_logic_vector((DIGITS_BCD*4) - 1 downto 0)
         );
     end component;
     
@@ -28,7 +32,7 @@ architecture Behavioral of test_binary_bcd_converter is
     
 begin
     uut: binary_bcd_converter
-        generic map( DIGITOS => DIGITOS, DATA_BITS => DATA_BITS)
+        generic map( DIGITS_BCD => DIGITOS, BITS_DATA => DATA_BITS)
         port    map( clk => clk, reset => reset, nconvert => nconvert, data => data, bcd_digits => bcd_digits);
     
     data <= "111001110011";     -- 3699 d
@@ -46,7 +50,7 @@ begin
             reset <= '1';
             wait for 15 ns;
             reset <= '0';
-            wait for 500ns;
+            wait for 985 ns;
         end process;
     
     convert: process is 

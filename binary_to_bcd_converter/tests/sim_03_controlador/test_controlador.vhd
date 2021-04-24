@@ -9,27 +9,32 @@ architecture Behavioral of test_controlador is
     constant DATA_BITS : natural := 12;
     
     component controlador
+        --
+        --  DATA_BITS: length of the binary data that will be converted
+        --
         generic( DATA_BITS: natural);
         port (
-            nconvert    : in  std_logic;        -- start of operation  
-            reset       : in  std_logic;
-            clk         : in  std_logic;
-            load_shift  : out std_logic;        -- control of parallel load - shift
-            hold_convert: out std_logic         -- control of binary to bcd converter
+            clk           : in  std_logic;
+            reset         : in  std_logic;
+            nconvert      : in  std_logic;                                   -- input for starting a convertion  
+            load_nshift   : out std_logic;                                   -- control signal for the load_shift block 
+            hold_nconvert : out std_logic;                                   -- control signal for the binary_to_bcd block
+            internal_reset: out std_logic                                    -- internal reset, before starting a new conversion
         );
     end component;
     
-    signal nconvert    : std_logic;        -- start of operation  
-    signal reset       : std_logic;
-    signal clk         : std_logic;
-    signal load_shift  : std_logic;        -- control of parallel load - shift
-    signal hold_convert: std_logic;         -- control of binary to bcd converter
+    signal clk           : std_logic;
+    signal reset         : std_logic;
+    signal nconvert      : std_logic;        -- start of operation  
+    signal load_nshift   : std_logic;        -- control of parallel load - shift
+    signal hold_nconvert : std_logic;        -- control of binary to bcd converter
+    signal internal_reset: std_logic;        -- reset of binary to bcd converter
     
 begin
-    uut: controlador
-        generic map( DATA_BITS)
-        port    map( nconvert, reset, clk, load_shift, hold_convert);
-        
+    dut: controlador
+        generic map( DATA_BITS => DATA_BITS)
+        port    map( clk => clk, reset => reset, nconvert => nconvert, load_nshift => load_nshift, hold_nconvert => hold_nconvert, internal_reset => internal_reset);
+
     clock: process is
         begin
             clk <= '0';

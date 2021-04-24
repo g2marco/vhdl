@@ -15,17 +15,18 @@ entity binary_to_bcd is
     --  DIGITS : number of BCD digits
     --
     generic( DIGITS: natural);
+    
     port(
-        clk          : in    std_logic;
-        reset        : in    std_logic;
-        hold_nconvert: in    std_logic;                                 -- 1 hold , 0 convertion
-        data_in      : in    std_logic;                                 -- serial data input
+        clk          : in  std_logic;
+        reset        : in  std_logic;
+        hold_nconvert: in  std_logic;                                   -- 1 hold , 0 convertion
+        data_in      : in  std_logic;                                   -- serial data input
         bcd_digits   : out std_logic_vector( (DIGITS * 4) - 1 downto 0) -- 
     );
 end binary_to_bcd;
 
 --
-architecture Behavioral of binary_to_bcd is
+architecture behavioral of binary_to_bcd is
     signal next_digits   : std_logic_vector( (DIGITS * 4) - 1 downto 0);
     signal current_digits: std_logic_vector( (DIGITS * 4) - 1 downto 0);
     
@@ -64,4 +65,4 @@ begin
             next_digits <= (siguiente( siguiente'length - 2 downto 0) & data_in);         
        end process;
 
-end Behavioral;
+end behavioral;

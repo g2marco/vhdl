@@ -4,7 +4,7 @@ library ieee;
 entity test_load_shift is
 end test_load_shift;
 
-architecture Behavioral of test_load_shift is
+architecture behavioral of test_load_shift is
     constant DATA_BITS: natural := 16;
     
     component load_shift
@@ -55,4 +55,4 @@ begin
         
     data <= "0011001100110011";
             
-end Behavioral;
+end behavioral;

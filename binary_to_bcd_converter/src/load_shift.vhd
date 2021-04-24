@@ -25,7 +25,7 @@ entity load_shift is
 end load_shift;
 
 --
-architecture Behavioral of load_shift is
+architecture behavioral of load_shift is
     constant ZEROS   : std_logic_vector( DATA_BITS - 1 downto 0) := (others => '0');
     
     signal siguiente : std_logic_vector( DATA_BITS - 1 downto 0) := ZEROS;  
@@ -56,4 +56,4 @@ begin
             end case;
         end process proc_siguiente;
             
-end Behavioral;
+end behavioral;

@@ -4,31 +4,39 @@ library IEEE;
 entity test_binary_to_bcd is
 end test_binary_to_bcd;
 
-architecture Behavioral of test_binary_to_bcd is
-    component binary_to_bcd is port(
-        clk       : in    std_logic;
-        reset     : in    std_logic;
-        nconvert  : in    std_logic;
-        data_in   : in    std_logic;
-        bcd_digits: inout std_logic_vector( 15 downto 0)
-    );
+architecture behavioral of test_binary_to_bcd is
+    --
+    
+    component binary_to_bcd is
+        --
+        --  DIGITS : number of BCD digits
+        --
+        generic( DIGITS: natural);
+        port(
+            clk          : in  std_logic;
+            reset        : in  std_logic;
+            hold_nconvert: in  std_logic;                                   -- 1 hold , 0 convertion
+            data_in      : in  std_logic;                                   -- serial data input
+            bcd_digits   : out std_logic_vector( (DIGITS * 4) - 1 downto 0) -- 
+        );
     end component;
     
     -- Señales de entrada.
-    signal clk      : std_logic := '0';
-    signal reset    : std_logic := '0';
-    signal nconvert : std_logic := '1'; 
-    signal data_in  : std_logic := '0';
+    signal clk          : std_logic := '0';
+    signal reset        : std_logic := '0';
+    signal hold_nconvert: std_logic := '1'; 
+    signal data_in      : std_logic := '0';
    
     -- Señales de salida.
     signal bcd_digits: std_logic_vector (15 downto 0);
 
     -- Definición del perido del reloj.
     constant clk_period : time := 10 ns;
+
 begin
-     
-   -- Usar la unidad bajo prueba.
-   uut: binary_to_bcd PORT MAP ( clk => clk, reset => reset, nconvert => nconvert, data_in => data_in, bcd_digits => bcd_digits);
+    dut: binary_to_bcd 
+        generic map( DIGITS => 4)
+        port    map( clk => clk, reset => reset, hold_nconvert => hold_nconvert, data_in => data_in, bcd_digits => bcd_digits);
 
    -- Generar reloj.
    clk_process: process
@@ -42,11 +50,11 @@ begin
    -- Estímulos.
    stim_proc: process
    begin
-       nconvert <= '1';
+       hold_nconvert <= '1';
        data_in <= '1';
        wait for 54 ns;
        
-       nconvert <= '0';
+       hold_nconvert <= '0';
        data_in <= '1';
        wait for 28 ns;
        
@@ -65,7 +73,7 @@ begin
        data_in <= '1';
        wait for 14 ns;
        
-       nconvert <= '1';
+       hold_nconvert <= '1';
        wait for 100ns;
        
     end process;
