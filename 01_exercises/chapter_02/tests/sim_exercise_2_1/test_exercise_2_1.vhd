@@ -30,7 +30,7 @@ architecture behavioral of test_exercise_2_1 is
 begin
 
     dut:  mux
-        port map ( a => a, b  => b, sel => sel, x => x);
+        port map ( a => a, b => b, sel => sel, x => x);
         
     a_and_b: process
         begin
